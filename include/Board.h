@@ -8,7 +8,7 @@
 class Board{
 
     class Board_Position{
-        char token = 'x';
+        char token = ' ';
         int player1_value = 0;
         int player2_value = 0;
 
@@ -26,7 +26,9 @@ class Board{
                 token = new_token;
                 return;}
 
-        };
+    };
+
+
 
 
     int board_height = 0;
@@ -35,6 +37,7 @@ class Board{
     int number_of_positions;
 
     Board_Position game_board[42];
+
 
 
     public:

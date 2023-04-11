@@ -19,7 +19,7 @@ Board::Board(int height, int width){
 
     const int number_of_positions = board_height * board_width;
 
-    Board_Position game_board[42];
+    //Board_Position game_board[42];
 
 };
 
@@ -33,8 +33,6 @@ void Board::print_board(){
 
 
     std::cout << "printing board" << std::endl;
-
-    int starting_position = 0;
 
     for (int y = this->board_height; y >= 1; y--){
 

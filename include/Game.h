@@ -4,6 +4,8 @@
 #include "Board.h"
 
 #include "Player.h"
+#include "BotPlayer.h"
+#include "HumanPlayer.h"
 
 class Game
 {
@@ -12,9 +14,9 @@ private:
 
     Board game_board;
 
-    //Player player1;
+    BotPlayer player1;
 
-    //Player player2;
+    HumanPlayer player2;
 
 public:
 
