@@ -1,0 +1,3 @@
+/home/chris/Programming/Connect4_cpp/build/CMakeFiles/Connect4.dir
+/home/chris/Programming/Connect4_cpp/build/CMakeFiles/edit_cache.dir
+/home/chris/Programming/Connect4_cpp/build/CMakeFiles/rebuild_cache.dir
