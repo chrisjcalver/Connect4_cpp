@@ -6,11 +6,11 @@
 class HumanPlayer : public Player
 {
 
-    char token = 'o';
+    char Player::token = 'o';
     void ignoreLine();
 
 public:
-
+    HumanPlayer(){ Player::token = 'o'; };
     int get_move(int board_width);
 
 };

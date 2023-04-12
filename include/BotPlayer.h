@@ -3,12 +3,14 @@
 
 #include "Player.h"
 
-class BotPlayer
+class BotPlayer : public Player
 {
 
-    char token = 'x';
+    char Player::token = 'x';
 
 public:
+
+    BotPlayer(){ Player::token = 'x'; };
 
     int get_move();
 };

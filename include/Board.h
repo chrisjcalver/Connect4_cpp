@@ -36,7 +36,7 @@ class Board{
 
     int number_of_positions;
 
-    Board_Position game_board[42];
+    Board_Position board[42];
 
 
 
@@ -49,9 +49,25 @@ class Board{
 
         //std::array<board_position, 42> get_board_array() {return board_array;}
 
-        void print_board();
+
 
         int get_board_width() {return this->board_width;}
+
+        char get_token(int position) { return this->board[position].get_token(); }
+
+        int make_move( char token, int column);
+
+        bool check_for_horizontal_win(char player_token, int original_position, int run_needed);
+
+        bool check_for_vertical_win(char player_token, int original_position, int run_needed);
+
+        bool check_for_up_left_win(char player_token, int original_position, int run_needed);
+
+        bool check_for_up_right_win(char player_token, int original_position, int run_needed);
+
+        bool check_for_win(char player_token, int original_position, int run_needed);
+
+        void print_board();
 
 };
 

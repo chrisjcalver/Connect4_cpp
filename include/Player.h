@@ -4,7 +4,10 @@
 
 class Player{
 
-    char token = ' ';
+    protected:
+
+
+        char token;
 
     public:
 
