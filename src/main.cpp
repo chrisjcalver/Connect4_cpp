@@ -59,8 +59,6 @@ int main()
 
     this_game.run_game();
 
-
-
     /*
     Catch::Session session; // There must be exactly one instance
     int numFailed = session.run();

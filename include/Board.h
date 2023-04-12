@@ -44,11 +44,14 @@ class Board{
 
         Board();
 
+
         Board(int height, int width);
 
         //std::array<board_position, 42> get_board_array() {return board_array;}
 
         void print_board();
+
+        int get_board_width() {return this->board_width;}
 
 };
 

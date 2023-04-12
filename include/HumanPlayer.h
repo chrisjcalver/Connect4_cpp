@@ -6,11 +6,12 @@
 class HumanPlayer : public Player
 {
 
-
+    char token = 'o';
+    void ignoreLine();
 
 public:
 
-    int get_move();
+    int get_move(int board_width);
 
 };
 

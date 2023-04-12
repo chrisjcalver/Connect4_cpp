@@ -6,10 +6,11 @@
 class BotPlayer
 {
 
+    char token = 'x';
 
 public:
 
-int get_move();
+    int get_move();
 };
 
 #endif

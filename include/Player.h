@@ -10,6 +10,7 @@ class Player{
 
         Player();
 
+        char get_token(){return token;}
         int get_move();
 
 };

@@ -22,9 +22,21 @@ public:
 
     Game();
 
+    /*
+    ~Game(){
+
+        delete game_board;
+        delete player1;
+        delete player2;
+
+    }
+*/
+
+
     void print_game_board();
 
     void run_game();
+
 
 
 
