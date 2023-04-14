@@ -66,8 +66,6 @@ void Game::run_game(){
             this->game_board.print_board();
         }
 
-
-
     }
     return;
     }

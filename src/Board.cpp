@@ -1,9 +1,6 @@
 #include "Board.h"
 #include <iostream>
 
-
-//constructor
-
 //constructor
 Board::Board(){
     Board::board_width = 7;
@@ -43,7 +40,7 @@ void Board::print_board(){
         for (int x = 0; x < this->board_width; x++){
 
             int board_position_location = start_of_row_number + x;
-            std::cout << board[board_position_location].get_token() << '|';
+            std::cout << board[board_position_location].token << '|';
         }
 
         std::cout << std::endl;
@@ -53,17 +50,17 @@ void Board::print_board(){
     return;
 }
 
-int Board::make_move(char token, int column){
+int Board::make_move(char new_token, int column){
 
     int position_to_check = (this->board_height - 1) * this->board_width + column;
     bool position_occupied = true;
 
     //the test to see if column is full is already included in the Game class run_game()
     while (position_occupied){
-        if (board[position_to_check].get_token() == ' ')
+        if (board[position_to_check].token == ' ')
             {
             position_occupied = false;
-            board[position_to_check].set_token(token);
+            board[position_to_check].token = new_token;
             return position_to_check;
             }
         position_to_check = position_to_check - this->board_width;
@@ -107,7 +104,7 @@ bool Board::check_for_horizontal_win(char player_token, int original_position, i
                 break;
                 }
 
-            if (this->board[position].get_token() != player_token)
+            if (this->board[position].token != player_token)
                 {
                 break;
                 }
@@ -157,7 +154,7 @@ bool Board::check_for_vertical_win(char player_token, int original_position, int
                 break;
                 }
 
-            if (this->board[position].get_token() != player_token)
+            if (this->board[position].token != player_token)
                 {
                 break;
                 }
@@ -205,7 +202,7 @@ bool Board::check_for_up_left_win(char player_token, int original_position, int 
                 break;
                 }
 
-            if (this->board[position].get_token() != player_token)
+            if (this->board[position].token != player_token)
                 {
                 break;
                 }
@@ -253,7 +250,7 @@ bool Board::check_for_up_right_win(char player_token, int original_position, int
                 break;
                 }
 
-            if (this->board[position].get_token() != player_token)
+            if (this->board[position].token != player_token)
                 {
                 break;
                 }
@@ -295,3 +292,169 @@ bool Board::check_for_win(char player_token, int original_position, int run_need
     return has_won_bool;
 }
 
+//right runs are position 0 in the potential runs array
+int Board::single_position_update_right_runs(int player_identifier, char player_token, int starting_position, int run_needed){
+
+    int further_position_to_check = 99;
+    int potential_run = 0;
+
+    // If a run is impossible due to it being blocked it will always be blocked
+    if(this->board[starting_position].potential_run_count[player_identifier][0] == 9){ return 9;}
+
+    // This loop checks for runs to the right
+    for (int count_forward = 0; count_forward < run_needed; count_forward ++){
+
+        // Position increases by 1 as moving to the right
+        further_position_to_check = starting_position + count_forward;
+
+        //Check out of bounds right. If it goes out of bounds it will never be a winning run so return 9.
+        if (further_position_to_check % this->board_width < starting_position % this->board_width)
+            {
+            this->board[starting_position].potential_run_count[player_identifier][0] = 9;
+            return 9;
+        }
+        //If a board position is filled with opponents token that winning run will never be possible
+        if (this->board[further_position_to_check].token != player_token && this->board[further_position_to_check].token != player_token)
+            {
+            this->board[starting_position].potential_run_count[player_identifier][0] = 9;
+            return 9;
+        }
+
+        if (this->board[further_position_to_check].token == player_token)
+            {
+            potential_run++;
+        }
+    }
+
+this->board[starting_position].potential_run_count[player_identifier][0] = 9;
+return potential_run;
+}
+
+//Up runs are position [1] in potential_runs array
+int Board::single_position_update_up_runs(int player_identifier, char player_token, int starting_position, int run_needed){
+
+    int further_position_to_check = 99;
+    int potential_run = 0;
+
+    // If a run is impossible due to it being blocked it will always be blocked
+    if(this->board[starting_position].potential_run_count[player_identifier][1] == 9){ return 9;}
+
+    // This loop checks for potential runs up
+    for (int count_forward = 0; count_forward < run_needed; count_forward ++){
+
+        // Position decreases by board width as moving up
+        further_position_to_check = starting_position - count_forward*this->board_width;
+
+        //Check out of bounds up. If it goes out of bounds it will never be a winning run so return 9.
+        if (further_position_to_check < 0)
+            {
+            this->board[starting_position].potential_run_count[player_identifier][1] = 9;
+            return 9;
+        }
+        //If a board position is filled with opponents token that winning run will never be possible
+        if (this->board[further_position_to_check].token != player_token && this->board[further_position_to_check].token != player_token)
+            {
+            this->board[starting_position].potential_run_count[player_identifier][1] = 9;
+            return 9;
+        }
+
+        if (this->board[further_position_to_check].token == player_token)
+            {
+            potential_run++;
+        }
+    }
+
+this->board[starting_position].potential_run_count[player_identifier][1] = potential_run;
+return potential_run;
+}
+
+//Up Left are position [2] in potential_runs array
+int Board::single_position_update_up_left_runs(int player_identifier, char player_token, int starting_position, int run_needed){
+    //This variable should always be updated before being used
+    int further_position_to_check = 99;
+    int potential_run = 0;
+
+    // If a run is impossible due to it being blocked it will always be blocked
+    if(this->board[starting_position].potential_run_count[player_identifier][2] == 9){ return 9;}
+
+    // This loop checks for potential runs up left
+    for (int count_forward = 0; count_forward < run_needed; count_forward ++){
+
+        // Position decreases in increments of (board width + 1) as moving up decreases by board width and moving left decreases by 1
+        further_position_to_check = starting_position - count_forward*this->board_width;
+
+        //Check out of bounds up or left. If it goes out of bounds it will never be a winning run so return 9.
+        if (further_position_to_check < 0 || further_position_to_check % this->board_width > starting_position % this->board_width)
+            {
+            this->board[starting_position].potential_run_count[player_identifier][2] = 9;
+            return 9;
+        }
+        //If a board position is filled with opponents token that winning run will never be possible
+        if (this->board[further_position_to_check].token != player_token && this->board[further_position_to_check].token != player_token)
+            {
+            this->board[starting_position].potential_run_count[player_identifier][2] = 9;
+            return 9;
+        }
+
+        if (this->board[further_position_to_check].token == player_token)
+            {
+            potential_run++;
+        }
+    }
+this->board[starting_position].potential_run_count[player_identifier][2] = potential_run;
+return potential_run;
+}
+
+//Up Right runs are position [3] in potential_runs array
+int Board::single_position_update_up_right_runs(int player_identifier, char player_token, int starting_position, int run_needed){
+    //This variable should always be updated before being used
+    int further_position_to_check = 99;
+    int potential_run = 0;
+
+    // If a run is impossible due to it being blocked it will always be blocked
+    if(this->board[starting_position].potential_run_count[player_identifier][3] == 9){ return 9;}
+
+    // This loop checks for potential runs up left
+    for (int count_forward = 0; count_forward < run_needed; count_forward ++){
+
+        // Position decreases in increments of (board width - 1) as moving up decreases by board width and moving right increases by 1
+        further_position_to_check = starting_position - count_forward*this->board_width;
+
+        //Check out of bounds up or right. If it goes out of bounds it will never be a winning run so return 9.
+        if (further_position_to_check < 0 || further_position_to_check % this->board_width < starting_position % this->board_width)
+            {
+            this->board[starting_position].potential_run_count[player_identifier][3] = 9;
+            return 9;
+        }
+        //If a board position is filled with opponents token that winning run will never be possible
+        if (this->board[further_position_to_check].token != player_token && this->board[further_position_to_check].token != player_token)
+            {
+            this->board[starting_position].potential_run_count[player_identifier][3] = 9;
+            return 9;
+        }
+
+        if (this->board[further_position_to_check].token == player_token)
+            {
+            potential_run++;
+        }
+    }
+this->board[starting_position].potential_run_count[player_identifier][3] = potential_run;
+return potential_run;
+}
+
+void Board::single_position_update_all_runs(int player_identifier, char player_token, int run_needed){
+
+    for( int position = 0; position < this->number_of_positions; position++){
+
+        single_position_update_right_runs(player_identifier, player_token, position, run_needed);
+
+        single_position_update_up_runs(player_identifier, player_token, position, run_needed);
+
+        single_position_update_up_left_runs(player_identifier, player_token, position, run_needed);
+
+        single_position_update_up_right_runs(player_identifier, player_token, position, run_needed);
+    }
+    return;
+}
+
+//void Board::all_board_update_all_runs();
