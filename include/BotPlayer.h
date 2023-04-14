@@ -6,13 +6,13 @@
 class BotPlayer : public Player
 {
 
-    char Player::token = 'x';
+    //char Player::token = 'x';
 
 public:
 
-    BotPlayer(){ Player::token = 'x'; };
+    BotPlayer(){};
 
-    int get_move();
+    int get_move(int board_width) const override;
 };
 
 #endif

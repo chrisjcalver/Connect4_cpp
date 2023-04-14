@@ -6,12 +6,12 @@
 class HumanPlayer : public Player
 {
 
-    char Player::token = 'o';
-    void ignoreLine();
+    //char Player::token = 'o';
+    //void ignoreLine() const;
 
 public:
-    HumanPlayer(){ Player::token = 'o'; };
-    int get_move(int board_width);
+    HumanPlayer(){ std::cout << "Human Player initialized" << std::endl;};
+    int get_move(int board_width) const override;
 
 };
 

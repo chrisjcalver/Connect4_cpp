@@ -1,7 +1,7 @@
 #include"Player.h"
 
-Player::Player(){};
+//Player::Player(){};
 
-int Player::get_move(){
+//int Player::get_move(int board_width){
 
-return 9;}
+//return 9;}

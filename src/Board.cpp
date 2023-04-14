@@ -79,6 +79,7 @@ bool Board::check_for_horizontal_win(char player_token, int original_position, i
     bool has_won_bool = false;
     int starting_position = 99;
     int position = 98;
+    std::cout << "checking horizontal win";
     //This loop moves the starting position left in order to count right
     for (int count_back = 0; count_back < run_needed; count_back ++){
 
@@ -129,6 +130,7 @@ bool Board::check_for_vertical_win(char player_token, int original_position, int
     int starting_position = 99;
     int position = 98;
 
+    std::cout << "checking vertical win";
     // This loop moves the starting position down
     for (int count_back = 0; count_back < run_needed; count_back ++){
         // Moving down a row adds the board_width to the position

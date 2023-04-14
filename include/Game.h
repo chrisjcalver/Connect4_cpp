@@ -1,8 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "Board.h"
+#include <vector>
 
+#include "Board.h"
 #include "Player.h"
 #include "BotPlayer.h"
 #include "HumanPlayer.h"
@@ -14,13 +15,19 @@ private:
 
     Board game_board;
 
-    BotPlayer player1;
+    int player_count = 2;
 
-    HumanPlayer player2;
+    int run_needed = 4;
+
+    std::vector<Player*> player_vector;
+
+    std::vector<char> player_tokens;
 
 public:
 
     Game();
+
+    ~Game();
 
     /*
     ~Game(){
