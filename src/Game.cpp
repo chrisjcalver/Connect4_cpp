@@ -122,27 +122,29 @@ void Game::run_game(){
     //Create dictionary to avoid calling get_token() every time
 
     bool game_won = false;
+    bool game_drawn = false;
 
     int column_choice = 99;
     int token_position = 99;
 
-    while (!game_won){
+    int turn_count = 0;
+    int player_number = 99;
 
-        for( int player_number = 0; player_number < player_count; player_number++ ){
-            player_number = player_number % 2;
-            bool valid_move = false;
+    while (!game_won && !game_drawn){
 
-            while(!valid_move){
-                std::cout << "working to here";
-                std::cout << player_vector[player_number]->get_token();
-                column_choice = player_vector[player_number]->get_move(board_width);
-                //Top row position is the same as the column number
-                if( this->game_board.check_column_is_full(column_choice) == true){
-                    std::cout << "Sorry, that column is full. Please make another choice." << std::endl;
-                    break;
-                }
-                valid_move = true;
-                token_position = this->game_board.make_move(player_tokens[player_number], column_choice);
+        turn_count++;
+        player_number = (turn_count - 1) % player_count;
+
+        bool valid_move = false;
+
+        while(!valid_move){
+            column_choice = player_vector[player_number]->get_move(board_width);
+            if( this->game_board.check_column_is_full(column_choice) == true){
+                std::cout << "Sorry, that column is full. Please make another choice." << std::endl;
+                break;
+            }
+            valid_move = true;
+            token_position = this->game_board.make_move(player_tokens[player_number], column_choice);
                 this->game_board.print_board();
             }
 
@@ -151,8 +153,7 @@ void Game::run_game(){
             //std::cout << run_needed;
 
             game_won = game_board.check_for_win( player_tokens[player_number], token_position, run_needed);
-
+            game_drawn = game_board.check_for_draw();
         }
-    }
     return;
 }

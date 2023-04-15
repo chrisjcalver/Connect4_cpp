@@ -141,6 +141,8 @@ class Board{
 
         bool check_column_is_full(int column_choice);
 
+        bool check_for_draw();
+
         bool check_for_win(char player_token, int original_position, int run_needed);
 
         void all_board_update_all_runs();

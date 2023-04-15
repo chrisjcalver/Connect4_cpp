@@ -77,6 +77,18 @@ bool Board::check_column_is_full( int column_choice){
     return column_full;
 }
 
+bool Board::check_for_draw(){
+    bool draw = true;
+    bool column_full;
+    for (int column = 0; column < this->board_width; column++){
+        column_full = this->check_column_is_full(column);
+        if (!column_full) {
+            draw = false;
+            return draw;}
+    }
+    return draw;
+}
+
 //Four directions to check: Horizontal (Check Right), Vertical (Check Up), Diagonal UpLeft (Check UpLeft) and Diagonal UpRight (Check UpRight)
 //Attempt to get N in z row always counting right and/or up. Out of bounds check right and up.
 //Loop N times in opposite direction of check to ensure have covered all possible wins. Out of bounds check left and down
