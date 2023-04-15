@@ -65,7 +65,16 @@ int Board::make_move(char new_token, int column){
             }
         position_to_check = position_to_check - this->board_width;
     }
-return 99;
+return position_to_check;
+}
+
+bool Board::check_column_is_full( int column_choice){
+    bool column_full = false;
+    //Top row starts from zero so checking the position that is same as column_choice will check for top row
+    if( this->board[column_choice].token != ' '){
+        column_full = true;
+    }
+    return column_full;
 }
 
 //Four directions to check: Horizontal (Check Right), Vertical (Check Up), Diagonal UpLeft (Check UpLeft) and Diagonal UpRight (Check UpRight)

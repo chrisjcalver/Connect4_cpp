@@ -6,7 +6,7 @@
 class HumanPlayer : public Player
 {
 
-    //char Player::token = 'o';
+    //char Player::token;
     //void ignoreLine() const;
 
 public:

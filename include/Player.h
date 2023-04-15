@@ -1,17 +1,19 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-
+#include <iostream>
 //#include "BotPlayer.h"
 //#include "HumanPlayer.h"
 
 class Player{
 
-    char token = '$';
+
 
     protected:
 
-        Player(){
+        char token;
 
+        Player(){
+        std::cout << "Player is initialised" << std::endl;
         };
 
     public:

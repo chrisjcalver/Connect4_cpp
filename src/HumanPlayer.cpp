@@ -10,12 +10,7 @@ void HumanPlayer::ignoreLine() const
 */
 int HumanPlayer::get_move(int board_width) const{
 
-return 5;
-}
-
-/*
-
-    while (true)
+while (true)
     {
         std::cout << "Enter your column choice. First column is 1.";
         int selected_column{};
@@ -52,4 +47,3 @@ return 5;
         }
     }
 }
-*/

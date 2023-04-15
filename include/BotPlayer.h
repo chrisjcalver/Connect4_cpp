@@ -6,11 +6,11 @@
 class BotPlayer : public Player
 {
 
-    //char Player::token = 'x';
+    //char token;
 
 public:
 
-    BotPlayer(){};
+    BotPlayer(){std::cout << "Bot Player initialized" << std::endl;};
 
     int get_move(int board_width) const override;
 };

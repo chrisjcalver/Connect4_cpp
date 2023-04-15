@@ -23,11 +23,15 @@ private:
 
     std::vector<char> player_tokens;
 
+    BotPlayer player1;
+
+    HumanPlayer player2;
+
 public:
 
     Game();
 
-    ~Game();
+    //~Game();
 
     /*
     ~Game(){
