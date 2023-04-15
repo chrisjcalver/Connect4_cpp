@@ -1,6 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <iostream>
+#include "Board.h"
 //#include "BotPlayer.h"
 //#include "HumanPlayer.h"
 
@@ -12,9 +13,17 @@ class Player{
 
         char token;
 
-        Player(){
+        int board_width = 0;
+
+        Board* game_board_pointer;
+
+        Player(Board* given_game_board_pointer) : game_board_pointer{given_game_board_pointer}
+        {
+        //board_width = 10;
+        board_width = game_board_pointer->get_board_width();
         std::cout << "Player is initialised" << std::endl;
-        };
+        std::cout << "Board_width is" << board_width << std::endl;
+        }
 
     public:
 
@@ -24,7 +33,7 @@ class Player{
             this->token = new_token;
             return;}
 
-        virtual int get_move(int board_width) const = 0;
+        virtual int get_move() const = 0;
 
 };
 

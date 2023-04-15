@@ -13,19 +13,20 @@ class Game
 
 private:
 
-    Board game_board;
-
-    int player_count = 2;
-
-    int run_needed = 4;
-
-    std::vector<Player*> player_vector;
+    int run_needed;
 
     std::vector<char> player_tokens;
 
-    BotPlayer player1;
+    Board* game_board_pointer;
 
-    HumanPlayer player2;
+    int number_of_players;
+
+    //int run_needed = 4;
+
+    std::vector<Player*> player_vector;
+
+
+
 
 public:
 

@@ -1,5 +1,8 @@
 #include"BotPlayer.h"
 
+#include <iostream>
 
-int BotPlayer::get_move(int board_width)const {
+int BotPlayer::get_move()const {
+
+std::cout << this->board_width;
 return 0;}

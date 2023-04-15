@@ -2,6 +2,7 @@
 #define BOT_PLAYER_H
 
 #include "Player.h"
+#include "Board.h"
 
 class BotPlayer : public Player
 {
@@ -10,9 +11,16 @@ class BotPlayer : public Player
 
 public:
 
-    BotPlayer(){std::cout << "Bot Player initialized" << std::endl;};
+    BotPlayer(Board* game_board_pointer) : Player( game_board_pointer ){
 
-    int get_move(int board_width) const override;
+        std::cout << "Bot Player initialized" << std::endl;
+        //std::cout << game_board_pointer->get_board_width << std::endl;
+        std::cout << this->board_width << std::endl;
+
+        };
+
+
+    int get_move() const override;
 };
 
 #endif

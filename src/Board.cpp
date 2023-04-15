@@ -2,14 +2,16 @@
 #include <iostream>
 
 //constructor
-Board::Board(){
-    Board::board_width = 7;
-    Board::board_height = 6;
+Board::Board(std::vector<char>* given_token_vector_pointer, int given_run_needed, int given_number_of_players)
+    : token_vector_pointer{given_token_vector_pointer}, run_needed{given_run_needed}, number_of_players{given_number_of_players}
+{
+    this->board_width = 7;
+    this->board_height = 6;
     //Board_Position game_board[42];
     std::cout << "board initialized"  <<std::endl;
 };
 
-Board::Board(int height, int width){
+Board::Board(int height, int width, std::vector<char>* token_vector_pointer, int run_needed){
 
     const int board_height = height;
     const int board_width = width;
@@ -50,8 +52,9 @@ void Board::print_board(){
     return;
 }
 
-int Board::make_move(char new_token, int column){
+int Board::make_move(int player_number, int column){
 
+    char player_token = token_vector_pointer->at(player_number);
     int position_to_check = (this->board_height - 1) * this->board_width + column;
     bool position_occupied = true;
 
@@ -60,7 +63,7 @@ int Board::make_move(char new_token, int column){
         if (board[position_to_check].token == ' ')
             {
             position_occupied = false;
-            board[position_to_check].token = new_token;
+            board[position_to_check].token = player_token;
             return position_to_check;
             }
         position_to_check = position_to_check - this->board_width;
@@ -69,8 +72,10 @@ return position_to_check;
 }
 
 bool Board::check_column_is_full( int column_choice){
+    std::cout << "checking column" << column_choice << std::endl;
     bool column_full = false;
     //Top row starts from zero so checking the position that is same as column_choice will check for top row
+    std::cout << "token is" << this->board[column_choice].token << std::endl;
     if( this->board[column_choice].token != ' '){
         column_full = true;
     }
@@ -291,7 +296,7 @@ bool Board::check_for_up_right_win(char player_token, int original_position, int
     return has_won_bool;
 }
 
-bool Board::check_for_win(char player_token, int original_position, int run_needed){
+bool Board::check_for_win(char player_token, int original_position){
 
     std::cout << "checking for win" << std::endl;
     bool has_won_bool = false;
@@ -430,6 +435,7 @@ return potential_run;
 
 //Up Right runs are position [3] in potential_runs array
 int Board::single_position_update_up_right_runs(int player_identifier, char player_token, int starting_position, int run_needed){
+
     //This variable should always be updated before being used
     int further_position_to_check = 99;
     int potential_run = 0;
@@ -465,18 +471,24 @@ this->board[starting_position].potential_run_count[player_identifier][3] = poten
 return potential_run;
 }
 
-void Board::single_position_update_all_runs(int player_identifier, char player_token, int run_needed){
+void Board::single_position_update_runs_count(int position){
 
-    for( int position = 0; position < this->number_of_positions; position++){
+    char player_token = '$';
 
-        single_position_update_right_runs(player_identifier, player_token, position, run_needed);
+    for (int player_number = 0; player_number <= number_of_players; player_number++){
 
-        single_position_update_up_runs(player_identifier, player_token, position, run_needed);
+        player_token = token_vector_pointer->at(player_number);
 
-        single_position_update_up_left_runs(player_identifier, player_token, position, run_needed);
+        //for( int position = 0; position < this->number_of_positions; position++){
 
-        single_position_update_up_right_runs(player_identifier, player_token, position, run_needed);
-    }
+            single_position_update_right_runs(player_number, player_token, position, run_needed);
+
+            single_position_update_up_runs(player_number, player_token, position, run_needed);
+
+            single_position_update_up_left_runs(player_number, player_token, position, run_needed);
+
+            single_position_update_up_right_runs(player_number, player_token, position, run_needed);
+        }
     return;
 }
 

@@ -4,21 +4,24 @@
 #include "HumanPlayer.h"
 #include "Board.h"
 
+#include <vector>
+
 
 Game::Game(){
-        //default initialisation
+
+    int run_needed = 4;
+
+    number_of_players = 2;
+
+    game_board_pointer = new Board(&player_tokens, run_needed, number_of_players);
+
+    //game_board_pointer = &game_board;
 
 
-    //BotPlayer player1{};
 
     //HumanPlayer player2{};
 
 
-    this->player_vector.push_back(&player1);
-    this->player_vector.push_back(&player2);
-
-    this->player_tokens.push_back('x');
-    this->player_tokens.push_back('o');
 
 
     std::cout<<"game initialized"<< std::endl;
@@ -36,65 +39,23 @@ Game::~Game()
 */
 void Game::print_game_board(){
     std::cout << "trying to print board"<<std::endl;
-    this->game_board.print_board();
+    this->game_board_pointer->print_board();
     return;
     }
-/*
+
 void Game::run_game(){
-    int board_width = this->game_board.get_board_width();
-    std::cout << "running game with board width" << board_width << std::endl;
-    Game::print_game_board();
 
-    player_vector[0]->set_token('x');
-    player_vector[1]->set_token('o');
+    BotPlayer player1(game_board_pointer);
 
-    char token_check1 = player_vector[0]->get_token();
-    //char token_check2 = player_vector[1]->get_token();
-    std::cout << "player_vector token to check is: " << token_check1 <<std::endl;
-    std::cout << "player1 token to check is: " << player1.get_token() <<std::endl;
+    HumanPlayer player2(game_board_pointer);
 
-            bool valid_move = false;
-            int player_move = 99;
-            while(!valid_move){
-                std::cout << "player1 token is: " << player1.get_token()  << std::endl;
-                player_move = player1.get_move(board_width);
-                std::cout << player_move << std::endl;
-                if( this->game_board.get_token(player_move) != ' '){
-                    std::cout << "Sorry, that column is full. Please make another choice." << std::endl;
-                    break;
-                }
-                valid_move = true;
-                this->game_board.make_move(player_vector[0]->get_token(), player_move);
-                this->game_board.print_board();
-            }
+    this->player_vector.push_back(&player1);
+    this->player_vector.push_back(&player2);
 
-            bool game_won = game_board.check_for_win( player_vector[0]->get_token(), player_move, run_needed);
+    this->player_tokens.push_back('x');
+    this->player_tokens.push_back('o');
 
-
-            valid_move = false;
-            player_move = 99;
-            while(!valid_move){
-                std::cout << player2.get_token();
-                player_move = player2.get_move(board_width);
-                std::cout << player_move << std::endl;
-                if( this->game_board.get_token(player_move) != ' '){
-                    std::cout << "Sorry, that column is full. Please make another choice." << std::endl;
-                    break;
-                }
-                valid_move = true;
-                this->game_board.make_move(player_vector[1]->get_token(), player_move);
-                this->game_board.print_board();
-            }
-
-            game_won = game_board.check_for_win( player_vector[1]->get_token(), player_move, run_needed);
-
-
-
-    return;
-    }
-*/
-void Game::run_game(){
-    int board_width = this->game_board.get_board_width();
+    int board_width = this->game_board_pointer->get_board_width();
     std::cout << "running game with board width" << board_width << std::endl;
     Game::print_game_board();
 
@@ -130,30 +91,58 @@ void Game::run_game(){
     int turn_count = 0;
     int player_number = 99;
 
+    std::cout << "Working here 4" << std::endl;
+
     while (!game_won && !game_drawn){
 
+        std::cout << "Working here 5" << std::endl;
+
         turn_count++;
-        player_number = (turn_count - 1) % player_count;
+
+        std::cout << turn_count << std::endl;
+
+        std::cout << number_of_players << std::endl;
+
+        player_number = (turn_count - 1) % number_of_players;
+
+        std::cout << player_number << std::endl;
 
         bool valid_move = false;
 
+        std::cout << "Working here 1" << std::endl;
+
         while(!valid_move){
-            column_choice = player_vector[player_number]->get_move(board_width);
-            if( this->game_board.check_column_is_full(column_choice) == true){
+            std::cout << "Working here 2" << std::endl;
+            std::cout << player_number << std::endl;
+            std::cout << player_vector[0]->get_token() << std::endl;
+            std::cout << player_vector[1]->get_token() << std::endl;
+            std::cout << player_vector[player_number]->get_token() << std::endl;
+            column_choice = player_vector[player_number]->get_move();
+            std::cout << column_choice << std::endl;
+            if( this->game_board_pointer->check_column_is_full(column_choice) == true){
                 std::cout << "Sorry, that column is full. Please make another choice." << std::endl;
                 break;
             }
+            std::cout << "Working here 5" << std::endl;
             valid_move = true;
-            token_position = this->game_board.make_move(player_tokens[player_number], column_choice);
-                this->game_board.print_board();
+            //Updating board run_counts occurs within this function
+            std::cout << player_tokens[player_number] << std::endl;
+            std::cout << column_choice << std::endl;
+            token_position = this->game_board_pointer->make_move(player_number, column_choice);
+                this->game_board_pointer->print_board();
             }
 
             //std::cout << player_tokens[player_number];
             //std::cout << player_move;
             //std::cout << run_needed;
 
-            game_won = game_board.check_for_win( player_tokens[player_number], token_position, run_needed);
-            game_drawn = game_board.check_for_draw();
+            for (const auto& run_count : game_board_pointer->get_runs_counts( 0, player_number)) {
+            std::cout << run_count << ", ";
+            }
+            std::cout << std::endl;
+
+            game_won = game_board_pointer->check_for_win( player_tokens[player_number], token_position);
+            game_drawn = game_board_pointer->check_for_draw();
         }
     return;
 }

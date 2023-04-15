@@ -8,11 +8,13 @@ void HumanPlayer::ignoreLine() const
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 */
-int HumanPlayer::get_move(int board_width) const{
+int HumanPlayer::get_move() const{
 
 while (true)
     {
-        std::cout << "Enter your column choice. First column is 1.";
+
+        std::cout << "Enter your column choice. First column is 1."<<std::endl;
+        std::cout << this->board_width <<std::endl;
         int selected_column{};
         std::cin >> selected_column;
 
@@ -24,7 +26,7 @@ while (true)
             continue;
         }
 
-        if (selected_column > board_width){
+        if (selected_column > this->board_width){
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cerr << "Sorry, that column number is too high. Please try again.\n";
