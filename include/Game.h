@@ -13,19 +13,19 @@ class Game
 
 private:
 
+    int board_height;
+
+    int board_width;
+
     int run_needed;
 
-    std::vector<char> player_tokens;
+    //std::vector<char> player_tokens;
 
-    Board* game_board_pointer;
+    std::shared_ptr<Board> game_board_pointer;
 
     int number_of_players;
 
-    //int run_needed = 4;
-
-    std::array<Player*, 2> player_array;
-
-
+    std::array<std::shared_ptr<Player>, 2> player_array;
 
 
 public:

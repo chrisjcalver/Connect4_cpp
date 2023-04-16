@@ -5,6 +5,7 @@
 #include "Board.h"
 
 #include <iostream>
+#include <memory>
 
 class HumanPlayer : public Player
     //char Player::token;
@@ -13,7 +14,7 @@ class HumanPlayer : public Player
     //int board_width;
 
 public:
-    HumanPlayer(Board* game_board_pointer, int player_number) : Player(game_board_pointer, player_number){
+    HumanPlayer(std::shared_ptr<Board> game_board_pointer, int player_number) : Player(game_board_pointer, player_number){
 
         //this->board_width = 3;
 
@@ -26,7 +27,7 @@ public:
 
         std::cout << width_to_print << std::endl;};
 
-    int get_move() const override;
+    int get_move() override;
 
 };
 

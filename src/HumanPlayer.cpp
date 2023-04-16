@@ -8,13 +8,13 @@ void HumanPlayer::ignoreLine() const
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 */
-int HumanPlayer::get_move() const{
+int HumanPlayer::get_move() {
 
 while (true)
     {
 
         std::cout << "Enter your column choice. First column is 1."<<std::endl;
-        std::cout << this->board_width <<std::endl;
+        //std::cout << this->board_width <<std::endl;
         int selected_column{};
         std::cin >> selected_column;
 

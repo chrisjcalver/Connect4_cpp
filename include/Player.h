@@ -4,7 +4,7 @@
 #include "Board.h"
 //#include "BotPlayer.h"
 //#include "HumanPlayer.h"
-
+#include <memory>
 class Player{
 
 
@@ -15,16 +15,22 @@ class Player{
 
         int board_width = 0;
 
-        Board* game_board_pointer;
+        std::shared_ptr<Board> game_board_pointer;
 
         int player_number;
 
-        Player(Board* given_game_board_pointer, int given_player_number) : game_board_pointer{given_game_board_pointer}, player_number{given_player_number}
+        int opponent_number;
+
+        char opponent_token;
+
+        Player(std::shared_ptr<Board> game_board_pointer, int given_player_number) : game_board_pointer{game_board_pointer}, player_number{given_player_number}
         {
         //board_width = 10;
         board_width = game_board_pointer->get_board_width();
-        std::cout << "Player is initialised" << std::endl;
-        std::cout << "Board_width is" << board_width << std::endl;
+        //std::cout << "Player is initialised" << std::endl;
+        //std::cout << "Board_width is" << board_width << std::endl;
+        opponent_number = (player_number + 1) % 2;
+
         }
 
     public:
@@ -35,7 +41,13 @@ class Player{
             this->token = new_token;
             return;}
 
-        virtual int get_move() const = 0;
+        char set_opponent_token(){
+            opponent_token = this->game_board_pointer->get_player_token( opponent_number);
+
+            return opponent_token;
+        }
+
+        virtual int get_move() = 0;
 
 };
 

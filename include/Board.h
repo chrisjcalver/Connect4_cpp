@@ -4,6 +4,7 @@
 #include <array>
 #include <iostream>
 #include <vector>
+#include <memory>
 
 
 class Board{
@@ -26,7 +27,7 @@ class Board{
     int run_value_factor = 10;
     std::array<int, 2> board_values = {0,0};
 
-    std::vector<char>* token_vector_pointer;
+    std::shared_ptr< std::vector<char> > token_vector_pointer;
 
     int run_needed = 0;
 
@@ -56,7 +57,7 @@ class Board{
 
     public:
 
-        Board(int board_height, int board_width, std::vector<char>* given_token_vector_pointer, int given_run_needed, int number_of_player);
+        Board(int board_height, int board_width, std::shared_ptr< std::vector<char> > given_token_vector_pointer, int given_run_needed, int number_of_player);
 
 
         //Board(int height, int width, std::vector<char>* token_vector_pointer, int run_needed);
@@ -64,6 +65,7 @@ class Board{
         //std::array<board_position, 42> get_board_array() {return board_array;}
 
 
+        char get_player_token( int player_number){ return token_vector_pointer->at(player_number);}
 
         int get_board_width() {return this->board_width;}
 
@@ -90,6 +92,8 @@ class Board{
         void print_board();
 
         std::array<int,2> get_board_values(){ return board_values;}
+
+        int get_player_board_values(int player_number){ return board_values[player_number];}
 
 };
 
