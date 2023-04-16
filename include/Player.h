@@ -17,7 +17,9 @@ class Player{
 
         Board* game_board_pointer;
 
-        Player(Board* given_game_board_pointer) : game_board_pointer{given_game_board_pointer}
+        int player_number;
+
+        Player(Board* given_game_board_pointer, int given_player_number) : game_board_pointer{given_game_board_pointer}, player_number{given_player_number}
         {
         //board_width = 10;
         board_width = game_board_pointer->get_board_width();

@@ -13,7 +13,7 @@ class HumanPlayer : public Player
     //int board_width;
 
 public:
-    HumanPlayer(Board* game_board_pointer) : Player(game_board_pointer){
+    HumanPlayer(Board* game_board_pointer, int player_number) : Player(game_board_pointer, player_number){
 
         //this->board_width = 3;
 

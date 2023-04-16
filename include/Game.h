@@ -23,7 +23,7 @@ private:
 
     //int run_needed = 4;
 
-    std::vector<Player*> player_vector;
+    std::array<Player*, 2> player_array;
 
 
 
