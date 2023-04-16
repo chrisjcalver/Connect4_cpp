@@ -2,6 +2,7 @@
 #include <iostream>
 #include<cmath>
 #include<memory>
+#include <thread>
 
 //constructor
 Board::Board(int given_board_height, int given_board_width, std::shared_ptr< std::vector<char> > given_token_vector_pointer, int given_run_needed, int given_number_of_players)
@@ -537,18 +538,23 @@ return potential_run;
 }
 
 void Board::update_board_value(){
+
+  for (int player_number = 0; player_number < number_of_players; player_number++ ){
+
+    update_single_player_board_value(player_number);
+  }
+
+return;
+}
+
+void Board::update_single_player_board_value(int player_number){
     int board_value = 0;
-    for(int player_number = 0; player_number < number_of_players; player_number++){
-        board_value = 0;
         //std::cout << "number of positions is " << number_of_positions;
         for (int position = 0; position < number_of_positions; position++){
             board_value = board_value + this->board[position].potential_run_counts_and_value[player_number][4];
-
         }
 
         board_values[player_number] = board_value;
-
-    }
 return;
 }
 

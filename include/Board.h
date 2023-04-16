@@ -20,8 +20,8 @@ class Board{
 
     };
 
-    const int board_height;
-    const int board_width;
+    int board_height;
+    int board_width;
     int number_of_positions = 0;
 
     int run_value_factor = 10;
@@ -55,9 +55,12 @@ class Board{
 
 
 
+
     public:
 
         Board(int board_height, int board_width, std::shared_ptr< std::vector<char> > given_token_vector_pointer, int given_run_needed, int number_of_player);
+
+        Board(){};
 
 
         //Board(int height, int width, std::vector<char>* token_vector_pointer, int run_needed);
@@ -94,6 +97,8 @@ class Board{
         std::array<int,2> get_board_values(){ return board_values;}
 
         int get_player_board_values(int player_number){ return board_values[player_number];}
+
+        void update_single_player_board_value(int player_number);
 
 };
 
