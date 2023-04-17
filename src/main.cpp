@@ -81,7 +81,9 @@ int main()
 
     Game this_game {};
 
-    this_game.run_game();
+    int turn_number;
+
+    turn_number = this_game.run_game();
 
     /*
     Catch::Session session; // There must be exactly one instance
@@ -98,5 +100,5 @@ int main()
 
     std::cout << "Time elapsed: " << t.elapsed() << " seconds\n";
 
-    return 0;
+    return turn_number;
 }

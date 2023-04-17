@@ -82,7 +82,7 @@ class Board{
 
         bool check_for_draw();
 
-        bool check_for_win(char player_number, int original_position);
+        bool check_for_win(char player_token, int original_position);
 
         std::array<int,5> get_runs_counts( int position, int player_number){ return board[position].potential_run_counts_and_value[player_number];}
 

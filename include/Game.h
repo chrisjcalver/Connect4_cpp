@@ -47,7 +47,7 @@ public:
 
     void print_game_board();
 
-    void run_game();
+    int run_game();
 
 
 

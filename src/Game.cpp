@@ -47,11 +47,13 @@ void Game::print_game_board(){
     return;
     }
 
-void Game::run_game(){
+int Game::run_game(){
 
     std::shared_ptr< std::vector<char> > player_tokens_pointer = std::make_shared< std::vector<char> >();
 
     game_board_pointer = std::make_shared<Board>(board_height, board_width, player_tokens_pointer, run_needed, number_of_players);
+
+
 
     //game_board_pointer = new Board(board_height, board_width, &player_tokens, run_needed, number_of_players);
 
@@ -145,6 +147,9 @@ void Game::run_game(){
 
 
 
+
+
+
     while (!game_won && !game_drawn){
 
         for (auto player : player_array){
@@ -187,9 +192,9 @@ void Game::run_game(){
             //std::cout << player_tokens[player_number] << std::endl;
             //std::cout << column_choice << std::endl;
             token_position = this->game_board_pointer->make_move(player_tokens_pointer->at(player_number), column_choice);
-            //this->game_board_pointer->print_board();
+            this->game_board_pointer->print_board();
             int readable_column = column_choice + 1;
-            //std::cout << "The last move was: "<< readable_column << std::endl;
+            std::cout << "The last move was: "<< readable_column << std::endl;
             }
 
             //std::cout << player_tokens[player_number];
@@ -199,13 +204,13 @@ void Game::run_game(){
             //std::cout << "checking for win at: " <<  token_position << "for: " << player_tokens[player_number];
             game_won = game_board_pointer->check_for_win( player_tokens_pointer->at(player_number), token_position);
             if(game_won){
-                return;}
+                return turn_count;}
 
             game_drawn = game_board_pointer->check_for_draw();
             if(game_drawn){
-                return;}
+                return turn_count;}
         }
         }
 
-    return;
+    return -1;
 }
