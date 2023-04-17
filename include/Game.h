@@ -19,8 +19,6 @@ private:
 
     int run_needed;
 
-    //std::vector<char> player_tokens;
-
     std::shared_ptr<Board> game_board_pointer;
 
     int number_of_players;
@@ -32,25 +30,9 @@ public:
 
     Game();
 
-    //~Game();
-
-    /*
-    ~Game(){
-
-        delete game_board;
-        delete player1;
-        delete player2;
-
-    }
-*/
-
-
     void print_game_board();
 
     int run_game();
-
-
-
 
 };
 

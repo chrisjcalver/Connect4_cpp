@@ -10,21 +10,7 @@ Board::Board(int given_board_height, int given_board_width, std::shared_ptr< std
     token_vector_pointer{given_token_vector_pointer}, run_needed{given_run_needed}, number_of_players{given_number_of_players}
 {
 
-    //Board_Position game_board[42];
-    //std::cout << "board initialized with board_width"  << this->board_width <<std::endl;
 };
-
-//Board::Board(int height, int width, std::vector<char>* token_vector_pointer, int run_needed){
-
-    //const int board_height = height;
-    //const int board_width = width;
-
-    //const int number_of_positions = board_height * board_width;
-
-    //Board_Position game_board[42];
-
-//};
-
 
 
 // functions
@@ -33,8 +19,7 @@ void Board::print_board(){
 
     //The board is a 1D array representation of 2D board. game_board[0] is top left of what would be the 2D array
 
-
-    std::cout << "printing board" << std::endl;
+    //std::cout << "printing board" << std::endl;
 
     for (int y = 0; y < this->board_height; y++){
 
@@ -49,65 +34,33 @@ void Board::print_board(){
         }
 
         std::cout << std::endl;
-
-    }
-    /*
-    std::cout << "position 35 and player 0" << std::endl;
-    for (const auto& run_count : get_runs_counts( 35, 0)) {
-    std::cout << run_count << ", ";
-    }
-    std::cout << std::endl;
-
-    std::cout << "position 38 and player 1" << std::endl;
-    for (const auto& run_count : get_runs_counts( 38, 1)) {
-    std::cout << run_count << ", ";
-    }
-    std::cout << std::endl;
-
-    std::cout << "position 41 and player 1" << std::endl;
-    for (const auto& run_count : get_runs_counts( 41, 1)) {
-    std::cout << run_count << ", ";
     }
 
-    std::cout << std::endl;
-
-    //std::cout << "player 1 board value is " << board_values[0] << std::endl;
-    //std::cout << "player 2 board value is " << board_values[1] << std::endl;
-*/
-    return;
+    for (int x = 0; x < this->board_width; x++){
+        std::cout << ' ' << x+1;
+    }
+    std::cout <<std::endl;
+return;
 }
 
 int Board::make_move(char player_token, int column){
 
-//std::cout << "checking column: " << column << std::endl;
-//std::cout << "board width is: " << this->board_width << std::endl;
-//std::cout << "board height is: " << this->board_height << std::endl;
-
     int position_to_check = (this->board_height - 1) * this->board_width + column;
     bool position_occupied = true;
 
-    //the test to see if column is full is already included in the Game class run_game()
+    //the test to see if column is full is already included in HumanPLayer and BotPlayer get_move()
     while (position_occupied){
-
-           // std::cout << "checking position: " << position_to_check << std::endl;
 
         if (board[position_to_check].token == ' ')
             {
             position_occupied = false;
-    //std::cout << "Placing token at: " << position_to_check << std::endl;
-    //std::cout << "board width is: " << this->board_width << std::endl;
             board[position_to_check].token = player_token;
-            //std::cout << "board width is: " << this->board_width << std::endl;
-            //std::cout << "Going to check positions affected by " << position_to_check << std::endl;
             this->update_affected_positions_runs_counts(position_to_check);
-            //std::cout << "board width is: " << this->board_width << std::endl;
             this->update_board_value();
-            //std::cout << "board width is: " << this->board_width << std::endl;
-            //std::cout << "board height is: " << this->board_height << std::endl;
-
 
             return position_to_check;
-            }
+        }
+
         position_to_check = position_to_check - this->board_width;
     }
 
@@ -131,10 +84,7 @@ void Board::undo_move(int column){
 }
 
 bool Board::check_column_is_full( int column_choice){
-    //std::cout << "checking column" << column_choice << std::endl;
     bool column_full = false;
-    //Top row starts from zero so checking the position that is same as column_choice will check for top row
-    //std::cout << "token is" << this->board[column_choice].token << std::endl;
     if( this->board[column_choice].token != ' '){
         column_full = true;
     }
@@ -198,14 +148,12 @@ bool Board::check_for_horizontal_win(char player_token, int original_position){
                 }
 
                 run_count++;
-//std::cout << "run_count is: " << run_count << std::endl;
                 if( run_count == run_needed)
                 {
                     has_won_bool = true;
                     return has_won_bool;
                 }
             }
-        //std::cout << std::endl;
     }
     return has_won_bool;
 }
@@ -586,21 +534,15 @@ void Board::single_position_update_runs_count(int position){
             else{
                 position_value = position_value + pow(run_value_factor,right_runs);
             }
-
-            int right_value_to_add = pow(run_value_factor,right_runs);
-        //std::cout << "bw8: " << this->board_width << std::endl;
-            //std::cout << "so adding " << right_value_to_add <<std::endl;
             up_runs = single_position_update_up_runs(player_number, player_token, position);
-//std::cout << "up runs are " << right_runs <<std::endl;
+
             if (up_runs == 9){
                 position_value = position_value + 0;
             }
             else{
                 position_value = position_value + pow(run_value_factor,up_runs);
             }
-            int up_value_to_add = pow(run_value_factor,up_runs);
-            //std::cout << "so adding " << up_value_to_add <<std::endl;
-//std::cout << "bw9: " << this->board_width << std::endl;
+
             up_left_runs = single_position_update_up_left_runs(player_number, player_token, position);
 
             if (up_left_runs == 9){
@@ -609,7 +551,7 @@ void Board::single_position_update_runs_count(int position){
             else{
                 position_value = position_value + pow(run_value_factor,up_left_runs);
             }
-//std::cout << "bw10: " << this->board_width << std::endl;
+
             up_right_runs = single_position_update_up_right_runs(player_number, player_token, position);
             if (up_right_runs == 9){
             position_value = position_value + 0;
@@ -626,10 +568,9 @@ void Board::single_position_update_runs_count(int position){
 
 //This function cycles through moving down, left, down right and down left to update these positions as a move may affect their run counts
 void Board::update_affected_positions_runs_counts( int original_position){
-   // std::cout << "bw1: " << this->board_width << std::endl;
-    //std::cout << "Now checking positions affected by " << original_position << std::endl;
+
     int position_to_check = 99;
-    // move right
+
     for (int count_back = 0; count_back < run_needed; count_back ++){
 
         // Moving down a row adds the board_width to the position
@@ -650,20 +591,12 @@ void Board::update_affected_positions_runs_counts( int original_position){
         //Decrease by one each time move left
         position_to_check = original_position - count_back;
         //Check out of bounds left
-
-        int original_position_modulo = original_position % this->board_width;
-       // std::cout << "original_position is" << original_position_modulo << std::endl;
-
-                int to_check_modulo = position_to_check % this->board_width;
-        //std::cout << "to_check_modulo is" << to_check_modulo << std::endl;
-
         if ( (position_to_check % this->board_width) > (original_position % this->board_width) || (position_to_check < 0 ) )
             {
             //No need to check this position or any further
             break;
             }
-           // std::cout << "bw3: " << this->board_width << std::endl;
-            //std::cout << "checking for position: " << position_to_check << std::endl;
+
         this->single_position_update_runs_count(position_to_check);
     }
         //move down right

@@ -2,12 +2,8 @@
 #define PLAYER_H
 #include <iostream>
 #include "Board.h"
-//#include "BotPlayer.h"
-//#include "HumanPlayer.h"
 #include <memory>
 class Player{
-
-
 
     protected:
 
@@ -25,12 +21,8 @@ class Player{
 
         Player(std::shared_ptr<Board> game_board_pointer, int given_player_number) : game_board_pointer{game_board_pointer}, player_number{given_player_number}
         {
-        //board_width = 10;
         board_width = game_board_pointer->get_board_width();
-        //std::cout << "Player is initialised" << std::endl;
-        //std::cout << "Board_width is" << board_width << std::endl;
         opponent_number = (player_number + 1) % 2;
-
         }
 
     public:

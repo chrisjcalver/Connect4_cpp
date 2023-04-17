@@ -15,9 +15,6 @@ public:
 
     BotPlayer(std::shared_ptr<Board> game_board_pointer, int player_number) : Player( game_board_pointer , player_number){
 
-        //std::cout << "Bot Player initialized" << std::endl;
-        //std::cout << game_board_pointer->get_board_width << std::endl;
-        //std::cout << "board_width is: " << this->board_width << std::endl;
         };
 
 
@@ -35,11 +32,6 @@ public:
 
     int getRelativeMoveValue (char given_token, int column);
 
-
-
-
-
-    //bool check_for_potential_win(char check_token);
 };
 
 #endif

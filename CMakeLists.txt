@@ -2,9 +2,7 @@
 cmake_minimum_required(VERSION 3.22)   
 
 # Declare our project
-project("Connect4") 
-
-find_package(Catch2 REQUIRED)
+project("Connect4")
 
 include_directories(include tests)
 
@@ -17,7 +15,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 
 
-set(SOURCES src/Game.cpp src/Board.cpp src/BoardPosition.cpp src/BotPlayer.cpp src/HumanPlayer.cpp src/Player.cpp HelloTest.cc)
+set(SOURCES src/Game.cpp src/Board.cpp src/BoardPosition.cpp src/BotPlayer.cpp src/HumanPlayer.cpp src/Player.cpp Test.cc)
 
 # Add our main executable
 
@@ -30,7 +28,7 @@ option(BUILD_TESTING "Builds only the test executable." OFF)
 option(CODE_COVERAGE "Collect coverage from test library" OFF)
 
 
-target_link_libraries(${PROJECT_NAME} Catch2::Catch2WithMain GTest::gtest_main)
+target_link_libraries(${PROJECT_NAME} GTest::gtest_main)
 
 set(CMAKE_CXX_FLAGS " ${CMAKE_CXX_FLAGS} --coverage")
 
@@ -38,17 +36,17 @@ set(CMAKE_CXX_FLAGS " ${CMAKE_CXX_FLAGS} --coverage")
 enable_testing()
 
 add_executable(
-  HelloTest
-  HelloTest.cc
+  Test
+  Test.cc
   ${SOURCES}
   
 )
 target_link_libraries(
-  HelloTest
+  Test
   GTest::gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(HelloTest)
+gtest_discover_tests(Test)
 
 

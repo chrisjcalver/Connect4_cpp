@@ -15,7 +15,7 @@ class Board{
 
         protected:
         char token = ' ';
-        //{right runs, up runs, up_left, up_right}
+        //{right runs, up runs, up_left, up_right, total_value}
         std::array<std::array<int, 5>, 2> potential_run_counts_and_value = { { {0,0,0,0,0}, {0,0,0,0,0} } };
 
     };
@@ -61,12 +61,6 @@ class Board{
         Board(int board_height, int board_width, std::shared_ptr< std::vector<char> > given_token_vector_pointer, int given_run_needed, int number_of_player);
 
         Board(){};
-
-
-        //Board(int height, int width, std::vector<char>* token_vector_pointer, int run_needed);
-
-        //std::array<board_position, 42> get_board_array() {return board_array;}
-
 
         char get_player_token( int player_number){ return token_vector_pointer->at(player_number);}
 
